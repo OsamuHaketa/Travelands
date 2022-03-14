@@ -1,11 +1,4 @@
 <div class="container">
-  <h1>TOP</h1>
-  
-  <% @tag_list.each do |tag| %>
-  <%= link_to tag.tagname, tag_posts_path(tag.id) %>
-  <%= "(#{tag.posts.count}件)" %>
-  <% end %>
-  
   <table class='table table-hover table-inverse'>
     <thead>
       <tr>
@@ -15,26 +8,26 @@
         <th>Body</th>
       </tr>
     </thead>
-    <% @posts.each do |post| %>
+    <% @favorites.each do |favorite| %>
       <tbody>
         <tr>
-          <td><%= image_tag post.get_post_image, size:'500x350' %></td>
-          <td><%= link_to post.user.name, user_path(post.user) %></td>
-          <td><%= link_to post.title, post %>
-            <div id="star-rate<%= post.id%>"></div>
+          <td><%= image_tag favorite.post.get_post_image, size:'500x350' %></td>
+          <td><%= link_to favorite.user.name, user_path(favorite.user) %></td>
+          <td><%= link_to favorite.post.title, post_path(favorite.post) %>
+            <div id="star-rate<%= favorite.post.id%>"></div>
             <script>
-              $('#star-rate<%= post.id%>').raty({
+              $('#star-rate<%= favorite.post.id%>').raty({
                 size      : 36,
                 starOff   : '<%= asset_path('star-off.png') %>',
                 starOn    : '<%= asset_path('star-on.png') %>',
                 starHalf  : '<%= asset_path('star-half.png') %>',
                 half      : true,
                 readOnly  : true,
-                score: <%= post.star %>,
+                score: <%= favorite.post.star %>,
               });
             </script>
           </td>
-          <td><%= post.body %></td>
+          <td><%= favorite.post.body %></td>
         </tr>
       </tbody>
     <% end %>
