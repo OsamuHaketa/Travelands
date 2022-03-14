@@ -4,5 +4,8 @@
   <%= @user.introduction %>
   <% if @user == current_user %>
     <%= link_to "編集",edit_user_path(current_user) %>
+    <%= link_to "いいねした投稿を見る", favorite_path(@user) %>
+    <%= link_to "ブックマークを見る", bookmark_path(@user) %>
   <% end %>
+
 </div>
