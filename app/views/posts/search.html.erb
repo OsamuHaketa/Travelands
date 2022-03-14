@@ -21,7 +21,7 @@
     <% @posts.each do |post| %>
       <tr>
         <td><%= image_tag post.get_post_image, size:'500x350' %></td>
-        <td><%= post.user.name %></td>
+        <td><%= link_to post.user.name, user_path(post.user) %></td>
         <td><%= link_to post.title, post %>
           <div id="star-rate<%= post.id%>"></div>
           <script>

@@ -4,15 +4,23 @@
     <tr>
       <th></th>
       <th></th>
+      <th></th>
+      <th></th>
       <th>Title</th>
       <th>Body</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><%= image_tag @post.get_post_image, size:'500x350' %>
+      <td><%= image_tag @post.get_post_image, size:'500x350' %></td>
+      <td>
         <div id="bookmark_button_<%= @post.id %>">
-          <%= render "bookmarks/bookmark", post: @post %>　#②
+          <%= render "bookmarks/bookmark", post: @post %>
+        </div>
+      </td>
+      <td>
+        <div id="favorite_button_<%= @post.id %>">
+          <%= render "favorites/favorite", post: @post %>
         </div>
       </td>
       <td><%= link_to @post.user.name, user_path(@post.user) %></td>

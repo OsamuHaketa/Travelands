@@ -1,0 +1,5 @@
+<% if post.favorited_by?(current_user) %>
+  <%= link_to "いいね外す", post_favorites_path(post), method: :delete, remote: true %></td>
+<% else %>
+  <%= link_to "いいねする", post_favorites_path(post), method: :post, remote: true %></td>
+<% end %>
