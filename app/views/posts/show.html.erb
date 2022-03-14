@@ -10,7 +10,11 @@
   </thead>
   <tbody>
     <tr>
-      <td><%= image_tag @post.get_post_image, size:'500x350' %></td>
+      <td><%= image_tag @post.get_post_image, size:'500x350' %>
+        <div id="bookmark_button_<%= @post.id %>">
+          <%= render "bookmarks/bookmark", post: @post %>　#②
+        </div>
+      </td>
       <td><%= link_to @post.user.name, user_path(@post.user) %></td>
       <td><%= @post.title %></td>
       <td><%= @post.body %></td>
