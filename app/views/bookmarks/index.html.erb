@@ -12,7 +12,7 @@
       <tbody>
         <tr>
           <td><%= image_tag bookmark.post.get_post_image, size:'500x350' %></td>
-          <td><%= link_to bookmark.user.name, user_path(bookmark.user) %></td>
+          <td><%= link_to bookmark.post.user.name, user_path(bookmark.post.user) %></td>
           <td><%= link_to bookmark.post.title, post_path(bookmark.post) %>
             <div id="star-rate<%= bookmark.post.id%>"></div>
             <script>

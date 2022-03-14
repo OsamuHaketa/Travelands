@@ -12,11 +12,12 @@
       <tbody>
         <tr>
           <td><%= image_tag favorite.post.get_post_image, size:'500x350' %></td>
-          <td><%= link_to favorite.user.name, user_path(favorite.user) %></td>
+          <td><%= link_to favorite.post.user.name, user_path(favorite.post.user) %></td>
           <td><%= link_to favorite.post.title, post_path(favorite.post) %>
             <div id="star-rate<%= favorite.post.id%>"></div>
             <script>
-              $('#star-rate<%= favorite.post.id%>').raty({
+              $('#star-rate<%= favorite.post.id %>').empty();
+              $('#star-rate<%= favorite.post.id %>').raty({
                 size      : 36,
                 starOff   : '<%= asset_path('star-off.png') %>',
                 starOn    : '<%= asset_path('star-on.png') %>',
