@@ -16,6 +16,7 @@
           <td><%= link_to favorite.post.title, post_path(favorite.post) %>
             <div id="star-rate<%= favorite.post.id%>"></div>
             <script>
+              $('#star-rate<%= favorite.post.id%>').empty();
               $('#star-rate<%= favorite.post.id %>').raty({
                 size      : 36,
                 starOff   : '<%= asset_path('star-off.png') %>',

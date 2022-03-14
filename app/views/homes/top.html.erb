@@ -23,6 +23,7 @@
           <td><%= link_to post.title, post %>
             <div id="star-rate<%= post.id%>"></div>
             <script>
+              $('#star-rate<%= post.id%>').empty();
               $('#star-rate<%= post.id%>').raty({
                 size      : 36,
                 starOff   : '<%= asset_path('star-off.png') %>',
