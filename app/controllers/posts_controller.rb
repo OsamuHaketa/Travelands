@@ -19,23 +19,11 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @post_comment = PostComment.new
+    @post_tags = @post.tags
   end
     
   def index
-    if params[:tag_id]
-      @tag_list = Tag.all
-      @tag = Tag.find(params[:tag_id])
-      @posts = @tag.blogs.published.order(time: "DESC").page(params[:page]).per(10)
-      @posts_side = Post.published.order(time: "DESC")
-    else
-      @tag_list = Tag.all
-      @posts = Post.published.order(time: "DESC").page(params[:page]).per(10)
-      @posts_side = Post.published.order(time: "DESC")
-    end
-    respond_to do |format|
-      format.html
-      format.rss { render :layout => false }
-    end
+    
   end
 
   def edit
@@ -48,10 +36,16 @@ class PostsController < ApplicationController
     tag_list = params[:post][:tagname].delete(' ').delete('　').split(',')
     if @post.update(post_params)
       @post.save_posts(tag_list)
-      redirect_to root_path
+      redirect_to _path
     else
       render :edit
     end
+  end
+  
+  def search
+    @tag_list = Tag.all  #こっちの投稿一覧表示ページでも全てのタグを表示するために、タグを全取得
+    @tag = Tag.find(params[:tag_id])  #クリックしたタグを取得
+    @posts = @tag.posts.all           #クリックしたタグに紐付けられた投稿を全て表示
   end
   
   private
