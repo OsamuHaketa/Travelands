@@ -1,5 +1,5 @@
 <div class='container'>
-  <%= form_with model: @post, url: posts_path, local: true do |f| %>
+  <%= form_with model: @post, url: post_path, local: true do |f| %>
      <div class="row">
       <div class="mx-auto text-center mt-3">
         <div class="form-group">
@@ -36,7 +36,7 @@
       <div class="col-12 mt-3 text-center">
         <div class="form-group row col-12 mx-0">
         <%= f.label :タグ, class: "col-12 col-md-3 text-left px-0" %>
-        <%= f.text_field :tagname, placeholder: "半角カンマ( , )で、複数付けられます！", class: "pl-0 col-12 col-sm-8" %>
+        <%= f.text_field :tagname, value: @tag_list, placeholder: "半角カンマ( , )で、複数付けられます！", class: "pl-0 col-12 col-sm-8" %>
         </div>
         <div class="form-group row col-12 mx-0">
           <%= f.label :タイトル, class: "col-12 col-md-3 text-left px-0" %>
@@ -47,7 +47,7 @@
           <%= f.text_area :body, placeholder: "本文", class: "pl-0 col-12 col-sm-8", rows:"10" %>
         </div>
         <div class="form-group mx-auto">
-          <%= f.submit "投稿する", class: "btn btn-success" %>
+          <%= f.submit "編集する", class: "btn btn-success" %>
         </div>
       </div>
     </div>

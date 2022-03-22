@@ -1,36 +1,40 @@
 <div class="container">
-  <table class='table table-hover table-inverse'>
-    <thead>
-      <tr>
-        <th></th>
-        <th></th>
-        <th>Title</th>
-        <th>Body</th>
-      </tr>
-    </thead>
-    <% @favorites.each do |favorite| %>
-      <tbody>
+  <div class="table-responsive">
+    <table class='table table-hover table-inverse'>
+      <thead>
         <tr>
-          <td><%= image_tag favorite.post.get_post_image, size:'500x350' %></td>
-          <td><%= link_to favorite.post.user.name, user_path(favorite.post.user) %></td>
-          <td><%= link_to favorite.post.title, post_path(favorite.post) %>
-            <div id="star-rate<%= favorite.post.id%>"></div>
-            <script>
-              $('#star-rate<%= favorite.post.id%>').empty();
-              $('#star-rate<%= favorite.post.id %>').raty({
-                size      : 36,
-                starOff   : '<%= asset_path('star-off.png') %>',
-                starOn    : '<%= asset_path('star-on.png') %>',
-                starHalf  : '<%= asset_path('star-half.png') %>',
-                half      : true,
-                readOnly  : true,
-                score: <%= favorite.post.star %>,
-              });
-            </script>
-          </td>
-          <td><%= favorite.post.body %></td>
+          <th class="col-7">いいねした投稿</th>
+          <th class="col-2"></th>
+          <th class="col-3"></th>
         </tr>
-      </tbody>
-    <% end %>
-  </table>
+      </thead>
+      <% @favorites.each do |favorite| %>
+        <tbody>
+          <tr>
+            <td><%= image_tag favorite.post.get_post_image, width: '100%' %></td>
+            <td>
+              <%= image_tag favorite.post.user.get_profile_image, width: '40px',height: "40px",class:"rounded-circle" %><br>
+              <%= link_to favorite.post.user.name, user_path(favorite.post.user) %>
+            </td>
+            <td>
+              <%= link_to favorite.post.title, post_path(favorite.post) %>
+              <div id="star-rate<%= favorite.post.id %>"></div>
+              <script>
+                $('#star-rate<%= favorite.post.id %>').empty();
+                $('#star-rate<%= favorite.post.id %>').raty({
+                  size      : 36,
+                  starOff   : '<%= asset_path('star-off.png') %>',
+                  starOn    : '<%= asset_path('star-on.png') %>',
+                  starHalf  : '<%= asset_path('star-half.png') %>',
+                  half      : true,
+                  readOnly  : true,
+                  score: <%= favorite.post.star %>,
+                });
+              </script>
+            </td>
+          </tr>
+        </tbody>
+      <% end %>
+    </table>
+  </div>
 </div>
