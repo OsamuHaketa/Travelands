@@ -28,7 +28,10 @@
             <%= image_tag post.get_post_image, width: '100%' %>
             <% end %>
           </td>
-          <td><%= link_to post.user.name, user_path(post.user) %></td>
+          <td>
+            <%= image_tag post.user.get_profile_image, width: '40px',height: "40px",class:"rounded-circle" %>
+            <%= link_to post.user.name, user_path(post.user) %>
+          </td>
           <td><%= link_to post.title, post %>
             <div id="star-rate<%= post.id%>"></div>
             <script>
