@@ -1,69 +1,82 @@
 <div class="container">
-  <div id="star-rate<%= @post.id%>"></div>
-  <script>
-    $('#star-rate<%= @post.id%>').empty();
-    $('#star-rate<%= @post.id%>').raty({
-      size      : 36,
-      starOff   : '<%= asset_path('star-off.png') %>',
-      starOn    : '<%= asset_path('star-on.png') %>',
-      starHalf  : '<%= asset_path('star-half.png') %>',
-      half      : true,
-      readOnly  : true,
-      score: <%= @post.star %>,
-    });
-  </script>
-  <table class='table-responsive table-hover table-inverse'>
-    <thead>
-      <tr>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th>Title</th>
-        <th>Body</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= image_tag @post.get_post_image, size:'500x350' %></td>
-        <td>
+  <div class="row d-flex">
+    <div class="col-12">
+      <div class="my-4">
+        <strong><%= @post.title %></strong>
+        <% if @post.user == current_user %>
+          <%= link_to "編集する", edit_post_path(@post) %>
+        <% end %>
+      </div>
+      <%= image_tag @post.get_post_image, width:"100%" %>
+      <div id="star-rate<%= @post.id%>"></div>
+      <script>
+        $('#star-rate<%= @post.id%>').empty();
+        $('#star-rate<%= @post.id%>').raty({
+          size      : 36,
+          starOff   : '<%= asset_path('star-off.png') %>',
+          starOn    : '<%= asset_path('star-on.png') %>',
+          starHalf  : '<%= asset_path('star-half.png') %>',
+          half      : true,
+          readOnly  : true,
+          score: <%= @post.star %>,
+        });
+      </script>
+      <p class="mt-2 mb-1">タグ：
+        <% @tags.each do |tag| %>
+          <%= link_to tag.tagname, tag_posts_path(tag.id) %>
+          <%= "(#{tag.posts.count})" %>
+        <% end %>
+      </p>
+    </div>
+    <div class="col-12">
+      <div class="row mb-1">
+        <div class="mx-3">
           <div id="bookmark_button_<%= @post.id %>">
             <%= render "bookmarks/bookmark", post: @post %>
           </div>
-        </td>
-        <td>
+        </div>
+        <div class="mx-3">
           <div id="favorite_button_<%= @post.id %>">
             <%= render "favorites/favorite", post: @post %>
           </div>
-        </td>
-        <td><%= link_to @post.user.name, user_path(@post.user) %></td>
-        <td><%= @post.title %></td>
-        <td><%= @post.body %></td>
-      </tr>
-    </tbody>
-  </table>
-  
+        </div>
+      </div>
+      <div class="mb-2">
+        <%= image_tag @post.user.get_profile_image, width: '40px',height: "40px",class:"rounded-circle" %>
+        <%= link_to @post.user.name, user_path(@post.user) %>
+      </div>
+      <div class="ml-3 mb-3">
+        <%=safe_join(@post.body.split("\n"),tag(:br))%>
+      </div>
+    </div>
+  </div>
   <div>
     <%= form_with model: [@post, @post_comment], local: true do |f| %>
-      <%= f.text_area :comment, placeholder:"コメント欄" %>
-      <%= f.submit "コメントする" %>
+      <%= f.text_area :comment, :rows =>"5", placeholder:"コメント：", class:"form-control mb-3" %>
+      <%= f.submit "コメントする",class:"btn btn-success col-sm-3 mb-3" %>
     <% end %>
   </div>
-  
-  <table class='table table-hover table-inverse'>
-    <thead>
-      <tr>
-        <th>ユーザー名</th>
-        <th>コメント</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @post.post_comments.each do |post_comment| %>
+  <div class="low">
+    <table class='table table-hover table-inverse'>
+      <thead>
         <tr>
-          <td><%= post_comment.user.name %></td>
-          <td><%= post_comment.comment %></td>
+          <th></th>
+          <th></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @post.post_comments.each do |post_comment| %>
+          <tr>
+            <td>
+              <%= image_tag post_comment.user.get_profile_image, width: '40px',height: "40px",class:"rounded-circle" %>
+              <%= post_comment.user.name %>
+            </td>
+            <td>
+              <%=safe_join(post_comment.comment.split("\n"),tag(:br))%>
+              </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

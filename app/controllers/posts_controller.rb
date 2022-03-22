@@ -10,7 +10,7 @@ class PostsController < ApplicationController
     tag_list = params[:post][:tagname].delete(' ').delete('　').split(',')
     if @post.save
       @post.save_posts(tag_list)
-      redirect_to root_path
+      redirect_to post_path(@post)
     else
       redirect_to request.referer
     end
@@ -19,35 +19,35 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @post_comment = PostComment.new
-    @post_tags = @post.tags
+    @tags = @post.tags
   end
-    
+
   def index
-    
+
   end
 
   def edit
-    @post = current_user.posts.find(params[:id])
-    @tag_list = @post.tags.pluck(:tagname).join(',')
+    @post = Post.find(params[:id])
+    @tag_list =@post.tags.pluck(:tagname).join(",")
   end
-  
+
   def update
-    @post = current_user.posts.find(params[:id])
+    post = Post.find(params[:id])
     tag_list = params[:post][:tagname].delete(' ').delete('　').split(',')
-    if @post.update(post_params)
-      @post.save_posts(tag_list)
-      redirect_to _path
+    if post.update(post_params)
+      post.save_tags(tag_list)
+      redirect_to post_path(post)
     else
-      render :edit
+      redirect_to request.referer
     end
   end
-  
+
   def search
-    @tag_list = Tag.all  #こっちの投稿一覧表示ページでも全てのタグを表示するために、タグを全取得
-    @tag = Tag.find(params[:tag_id])  #クリックしたタグを取得
-    @posts = @tag.posts.all           #クリックしたタグに紐付けられた投稿を全て表示
+    @tag_list = Tag.all
+    @tag = Tag.find(params[:tag_id])
+    @posts = @tag.posts.all
   end
-  
+
   private
 
   def post_params
