@@ -1,5 +1,5 @@
 <div class="container">
-  <%= image_tag @user.get_profile_image, size:'300x300' %>
+  <%= image_tag @user.get_profile_image, size:'300x250' %>
   <%= @user.name %>
   <%= @user.introduction %>
   <% if @user == current_user %>
@@ -13,4 +13,38 @@
         <%= link_to "フォローする", user_relationships_path(@user.id), method: :post %>
       <% end %>
   <% end %>
+  <table class='table table-hover table-inverse'>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>Title</th>
+      <th>Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= image_tag post.get_post_image, size:'500x350' %></td>
+        <td><%= link_to post.user.name, user_path(post.user) %></td>
+        <td><%= link_to post.title, post %>
+          <div id="star-rate<%= post.id%>"></div>
+          <script>
+            $('#star-rate<%= post.id%>').empty();
+            $('#star-rate<%= post.id%>').raty({
+              size      : 36,
+              starOff   : '<%= asset_path('star-off.png') %>',
+              starOn    : '<%= asset_path('star-on.png') %>',
+              starHalf  : '<%= asset_path('star-half.png') %>',
+              half      : true,
+              readOnly  : true,
+              score: <%= post.star %>,
+            });
+          </script>
+        </td>
+        <td><%= post.body %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 </div>
