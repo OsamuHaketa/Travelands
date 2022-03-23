@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="table-responsive">
+    <table class='table table-hover table-inverse'>
+      <thead>
+        <tr>
+          <th class="col-7">ブクマした投稿</th>
+          <th class="col-2"></th>
+          <th class="col-3"></th>
+        </tr>
+      </thead>
+      <% @bookmarks.each do |bookmark| %>
+        <tbody>
+          <tr>
+            <td><%= image_tag bookmark.post.get_post_image, width: '100%' %></td>
+            <td>
+              <%= image_tag bookmark.post.user.get_profile_image, width: '40px',height: "40px",class:"rounded-circle" %><br>
+              <%= link_to bookmark.post.user.name, user_path(bookmark.post.user) %>
+            </td>
+            <td>
+              <%= link_to bookmark.post.title, post_path(bookmark.post) %>
+              <div id="star-rate<%= bookmark.post.id%>"></div>
+              <script>
+                $('#star-rate<%= bookmark.post.id %>').empty();
+                $('#star-rate<%= bookmark.post.id %>').raty({
+                  size      : 36,
+                  starOff   : '<%= asset_path('star-off.png') %>',
+                  starOn    : '<%= asset_path('star-on.png') %>',
+                  starHalf  : '<%= asset_path('star-half.png') %>',
+                  half      : true,
+                  readOnly  : true,
+                  score: <%= bookmark.post.star %>,
+                });
+              </script>
+            </td>
+          </tr>
+        </tbody>
+      <% end %>
+    </table>
+  </div>
+</div>

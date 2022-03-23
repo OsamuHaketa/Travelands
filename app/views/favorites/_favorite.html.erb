@@ -1,0 +1,7 @@
+<% if post.user != current_user %>
+  <% if post.favorited_by?(current_user) %>
+    <%= link_to "外", post_favorites_path(post), method: :delete, remote: true %></td>
+  <% else %>
+    <%= link_to "い", post_favorites_path(post), method: :post, remote: true %></td>
+  <% end %>
+<% end %>

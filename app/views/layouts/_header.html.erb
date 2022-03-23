@@ -2,21 +2,32 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
       <a class="navbar-brand" href="/"><span>Travelands</span></a>
+      <%#= link_to "Travelands", root_path, class:"navbar-brand", data: {"turbolinks" => false} %>
+
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-          
+
 <%# ユーザーログイン後のヘッダー　%>
           <% if user_signed_in? %>
             <li class="nav-item">
               <%= link_to "新規投稿",new_post_path, class: 'nav-link text-light' %>
             </li>
             <li class="nav-item">
+              <%= link_to "ブクマ一覧", bookmark_path(current_user), class: 'nav-link text-light' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "いいね一覧",favorite_path(current_user), class: 'nav-link text-light' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "マイページ",user_path(current_user), class: 'nav-link text-light' %>
+            </li>
+            <li class="nav-item">
               <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link text-light' %>
             </li>
-          
+
 <%# ログイン前のヘッダー(ユーザー、管理者共通)　%>
           <% else %>
             <li>
