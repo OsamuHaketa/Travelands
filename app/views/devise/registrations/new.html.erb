@@ -16,15 +16,15 @@
           <%= f.text_field :name, autofocus: true, :placeholder => "必須", class: "ml-4 pl-0" %>
         </div>
         <div class="form-group col-xs-9">
-         <%= f.label :メールアドレス, class: "col-12 col-md-3 text-left" %>
-         <%= f.email_field :email, autofocus: true, :placeholder => "必須", class: "ml-4 pl-0" %>
+          <%= f.label :メールアドレス, class: "col-12 col-md-3 text-left" %>
+          <%= f.email_field :email, autofocus: true, :placeholder => "必須", class: "ml-4 pl-0" %>
         </div>
         <div class="form-group col-xs-9">
           <label class= "col-12 col-md-3 text-left" >
-             <%= f.label :パスワード %>
-             <% if @minimum_password_length %>
-               <em>(<%= @minimum_password_length %>文字以上)</em>
-             <% end %>
+              <%= f.label :パスワード %>
+              <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %>文字以上)</em>
+              <% end %>
           </label>
           <%= f.password_field :password, autocomplete: "new-password", :placeholder => "必須", class: "ml-4 pl-0" %>
         </div>
