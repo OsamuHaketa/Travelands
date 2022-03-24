@@ -9,7 +9,7 @@ class PostsController < ApplicationController
     @post.user_id = current_user.id
     tag_list = params[:post][:tagname].delete(' ').delete('　').split(',')
     if @post.save
-      @post.save_posts(tag_list)
+      @post.save_tags(tag_list)
       redirect_to post_path(@post)
     else
       redirect_to request.referer

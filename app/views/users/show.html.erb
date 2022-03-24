@@ -25,7 +25,9 @@
       <% end %>
     </div>
     <div class="low mx-auto mb-4 col-md-5 text-center">
-      <%=safe_join(@user.introduction.split("\n"),tag(:br))%>
+      <% if @user.introduction != nil %>
+      <%= safe_join(@user.introduction.split("\n"),tag(:br)) %>
+      <% end %>
     </div>
   </div>
   <div class="table-responsive">
