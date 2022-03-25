@@ -42,6 +42,12 @@ class PostsController < ApplicationController
     end
   end
 
+  def destroy
+    post = Post.find(params[:id])
+    post.destroy
+    redirect_to user_path(current_user)
+  end
+
   def search
     @tag_list = Tag.all
     @tag = Tag.find(params[:tag_id])
