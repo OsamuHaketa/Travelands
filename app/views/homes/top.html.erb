@@ -1,6 +1,7 @@
 <div class="container">
   <div class="card d-flex align-items-center justify-content-center text-center">
-    <img src="/assets/top.jpg" class="card-img">
+
+    <%= image_tag asset_path("top.jpg"),class:"card-img" %>
     <div class="card-img-overlay d-flex justify-content-center align-items-center">
       <div class="py-4 col-8 col-md-5"  style="background-color:rgba(255,255,255,0.8); ">
         <h3 style="font-family:cursive; font-size:26px;"><b>Travelands</b></h3>
@@ -8,8 +9,10 @@
     </div>
   </div>
   <% @tag_list.each do |tag| %>
-    <%= link_to tag.tagname, tag_posts_path(tag.id) %>
-    <%= "(#{tag.posts.count}件)" %>
+    <% if tag.posts.count != 0 %>
+      <%= link_to tag.tagname, tag_posts_path(tag.id) %>
+      <%= "(#{tag.posts.count}件)" %>
+    <% end %>
   <% end %>
   <div class="table-responsive">
     <table class='table table-hover table-inverse'>
@@ -20,7 +23,6 @@
           <th class="col-3"></th>
         </tr>
       </thead>
-
       <tbody>
         <% @posts.each do |post| %>
           <tr>
@@ -51,7 +53,6 @@
           </tr>
         <% end %>
       </tbody>
-
     </table>
   </div>
 </div>
