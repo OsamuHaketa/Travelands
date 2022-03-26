@@ -16,13 +16,19 @@
               <%= link_to "新規投稿",new_post_path, class: 'nav-link text-light' %>
             </li>
             <li class="nav-item">
-              <%= link_to "ブクマ一覧", bookmark_path(current_user), class: 'nav-link text-light' %>
+              <%= link_to bookmark_path(current_user), class: 'nav-link text-light' do %>
+                <i class="fas fa-bookmark"></i>ブクマ一覧
+              <% end %>
             </li>
             <li class="nav-item">
-              <%= link_to "いいね一覧",favorite_path(current_user), class: 'nav-link text-light' %>
+              <%= link_to favorite_path(current_user), class: 'nav-link text-light' do %>
+              <i class="fas fa-heart"></i>いいね一覧
+              <% end %>
             </li>
             <li class="nav-item">
-              <%= link_to "マイページ",user_path(current_user), class: 'nav-link text-light' %>
+              <%= link_to user_path(current_user), class: 'nav-link text-light' do %>
+              <i class="fas fa-user"></i>マイページ
+              <% end %>
             </li>
             <li class="nav-item">
               <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link text-light' %>
