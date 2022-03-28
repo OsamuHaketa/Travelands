@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  
+
   def show
     @user = User.find(params[:id])
     @posts = @user.posts.all
@@ -17,16 +17,16 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path(@user)
     else
-      redirect_to request.referer
+      render :edit
     end
   end
-  
+
   def confirm
     @user = current_user
   end
 
   private
-  
+
   def user_params
     params.require(:user).permit(:name, :introduction, :profile_image)
   end
@@ -37,5 +37,5 @@ class UsersController < ApplicationController
       redirect_to user_path(current_user)
     end
   end
-  
+
 end
