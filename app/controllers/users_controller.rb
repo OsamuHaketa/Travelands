@@ -20,6 +20,10 @@ class UsersController < ApplicationController
       redirect_to request.referer
     end
   end
+  
+  def confirm
+    @user = current_user
+  end
 
   private
   

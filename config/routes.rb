@@ -5,8 +5,9 @@ Rails.application.routes.draw do
 
   resources :users do
     resource :relationships, only: [:create, :destroy]
-    get 'followings' => 'relationships#followings', as: 'followings'
-    get 'followers' => 'relationships#followers', as: 'followers'
+    get "followings" => "relationships#followings", as: "followings"
+    get "followers" => "relationships#followers", as: "followers"
+    get "confirm" => "users#confirm", as: "confirm"
   end
 
   resources :posts do

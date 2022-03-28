@@ -4,8 +4,13 @@
       <div class="my-4">
         <strong><%= @post.title %></strong>
         <% if @post.user == current_user %>
-          <%= link_to "編集する", edit_post_path(@post) %>
-          <%= link_to "削除する", post_path(@post), method: :delete %>
+          <%= link_to edit_post_path(@post) do %>
+            <i class="fas fa-edit" style="color: green;"></i>
+          <% end %>
+          <%= "/" %>
+          <%= link_to post_path(@post), method: :delete, data: { confirm: '削除しますか？' } do %>
+            <i class="fas fa-trash" style="color: red;"></i>
+          <% end %>
         <% end %>
       </div>
       <%= image_tag @post.get_post_image, width:"100%" %>
@@ -57,20 +62,25 @@
       <%= f.submit "コメントする",class:"btn btn-success col-sm-3 mb-3" %>
     <% end %>
   </div>
-  <div class="low">
+  <div class="low mb-5">
     <table class='table table-hover table-inverse'>
       <thead>
         <tr>
-          <th></th>
-          <th></th>
+          <th class="col-4"></th>
+          <th class="col-8"></th>
         </tr>
       </thead>
       <tbody>
         <% @post.post_comments.each do |post_comment| %>
           <tr>
             <td>
-              <%= image_tag post_comment.user.get_profile_image, width: '40px',height: "40px",class:"rounded-circle" %>
+              <%= image_tag post_comment.user.get_profile_image, width: '40px',height: "40px",class:"rounded-circle" %><br>
               <%= post_comment.user.name %>
+              <% if post_comment.user == current_user %>
+                <%= link_to post_post_comment_path(@post, post_comment), method: :delete do %>
+                  <i class="fas fa-trash"></i>削除
+                <% end %>
+              <% end %>
             </td>
             <td>
               <%=safe_join(post_comment.comment.split("\n"),tag(:br))%>
