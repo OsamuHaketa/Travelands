@@ -8,15 +8,14 @@ class PostCommentsController < ApplicationController
       redirect_to request.referer
     else
       redirect_to request.referer
+
     end
   end
 
-  def edit
-
-  end
-
   def destroy
-
+    comment = PostComment.find(params[:id])
+    comment.destroy
+    redirect_to request.referer
   end
 
 private

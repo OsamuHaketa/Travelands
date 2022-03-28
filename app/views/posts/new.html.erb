@@ -1,13 +1,4 @@
 <div class='container'>
-  <% if @post.errors.any? %>
-  <div class = "alert">
-    <ul>
-      <% @post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-  <% end %>
   <%= form_with model: @post, url: posts_path, local: true do |f| %>
      <div class="row">
       <div class="mx-auto text-center mt-3">
@@ -36,12 +27,22 @@
           starOn : '<%= asset_path('star-on.png') %>',
           starHalf : '<%= asset_path('star-half.png') %>',
           scoreName: 'post[star]',
+          score : 0.5,
           half: true,
         });
         </script>
       </div>
     </div>
     <div class="row">
+      <% if @post.errors.any? %>
+        <div style = "color: red;">
+          <ul>
+            <% @post.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
       <div class="col-12 mt-3 text-center">
         <div class="form-group row col-12 mx-0">
         <%= f.label :タグ, class: "col-12 col-md-3 text-left px-0" %>

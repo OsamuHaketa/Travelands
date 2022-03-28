@@ -5,6 +5,10 @@
     </div>
     <div class="low mb-1 text-center">
       <strong><%= @user.name %></strong>
+      <br>
+      <%= link_to user_confirm_path(current_user) do %>
+        <i class="fas fa-trash" style="color: red;"></i>退会する
+      <% end %>
     </div>
     <div class="low mb-1 text-center">
       <% if @user == current_user %>
@@ -42,7 +46,11 @@
       <% @posts.each do |post| %>
         <tbody>
           <tr>
-            <td><%= image_tag post.get_post_image, width: '100%' %></td>
+            <td>
+              <%= link_to post_path(post.id)  do %>
+              <%= image_tag post.get_post_image, width: '100%' %>
+              <% end %>
+            </td>
             <td>
               <%= image_tag post.user.get_profile_image, width: '40px',height: "40px",class:"rounded-circle" %><br>
               <%= link_to post.user.name, user_path(post.user) %>

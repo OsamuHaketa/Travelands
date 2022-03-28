@@ -12,7 +12,7 @@ class PostsController < ApplicationController
       @post.save_tags(tag_list)
       redirect_to post_path(@post)
     else
-      redirect_to request.referer
+      render :new
     end
   end
 
@@ -23,7 +23,6 @@ class PostsController < ApplicationController
   end
 
   def index
-
   end
 
   def edit
@@ -59,4 +58,5 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:post_image, :user_id, :body, :title, :star)
   end
+  
 end
