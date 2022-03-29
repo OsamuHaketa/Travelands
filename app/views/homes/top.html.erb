@@ -16,10 +16,10 @@
   <% end %>
   <%= link_to "タグ一覧",tag_path,class:"btn btn-sm btn-outline-success ml-3" %>
   <div>
-  <%= form_tag(root_path, :method => "get") do %>
-    <%= text_field_tag :search %>
-    <%= submit_tag "投稿を検索" ,:username => nil ,class: "btn btn-outline-success"%>
-  <% end %>
+    <%= form_tag(root_path, :method => "get") do %>
+      <%= text_field_tag :search %>
+      <%= submit_tag "投稿を検索" ,:username => nil ,class: "btn btn-outline-success"%>
+    <% end %>
   </div>
   <div class="table-responsive mt-2">
     <table class='table table-hover table-inverse'>
