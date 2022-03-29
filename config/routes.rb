@@ -19,9 +19,8 @@ Rails.application.routes.draw do
   get "users/:id/bookmarks", to: "bookmarks#index", as: :bookmark
   get "users/:id/favorites", to: "favorites#index", as: :favorite
 
-  resources :tags do
-    get 'posts', to: 'posts#search'
-  end
+  get ' /tags/:id/posts', to: 'posts#search', as: :tag_posts
+  get ' /tags/index', to: 'tags#index', as: :tag
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
