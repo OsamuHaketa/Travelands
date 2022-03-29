@@ -49,8 +49,8 @@ before_action :authenticate_user!, only: [:new,:create,:index,:edit,:destroy,:up
   end
 
   def search
-    @tag_list = Tag.all
-    @tag = Tag.find(params[:tag_id])
+    @tag_list = Tag.all.sort {|a,b| b.posts.size <=> a.posts.size}
+    @tag = Tag.find(params[:id])
     @posts = @tag.posts.all.order(created_at: :desc).page(params[:page]).per(10)
   end
 

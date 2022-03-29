@@ -1,0 +1,12 @@
+<div class="container my-2">
+<h3><strong>タグ一覧</strong></h3>
+<div class="d-flex flex-wrap">
+  <% @tag_list.each do |tag| %>
+    <div class="col-12 col-sm-4 border">
+      <% if tag.posts.count != 0 %>
+        <%= link_to tag.tagname, tag_posts_path(tag.id),style:"font-size:1.3em;" %>
+        <%= "(#{tag.posts.count}件)" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
