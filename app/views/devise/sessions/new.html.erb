@@ -9,6 +9,9 @@
   <div class="row">
     <div class="col-12 mt-3">
       <%= form_with(model:@user, url: session_path(@user)) do |f| %>
+        <% flash.each do |key, value| %>
+          <%= content_tag :div, "メールアドレスとパスワードが一致しません。", style:"color: red;" %>
+        <% end %>
         <form>
           <div class="form-group col-xs-9">
            <%= f.label :メールアドレス, class: "col-12 col-md-3 text-left" %>
