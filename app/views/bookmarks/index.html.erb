@@ -18,7 +18,7 @@
             </td>
             <td>
               <%= link_to bookmark.post.title, post_path(bookmark.post) %>
-              <div id="star-rate<%= bookmark.post.id%>"></div>
+              <div id="star-rate<%= bookmark.post.id %>"></div>
               <script>
                 $('#star-rate<%= bookmark.post.id %>').empty();
                 $('#star-rate<%= bookmark.post.id %>').raty({
@@ -36,5 +36,8 @@
         </tbody>
       <% end %>
     </table>
+  </div>
+  <div class="d-flex justify-content-center">
+    <%= paginate @bookmarks %>
   </div>
 </div>

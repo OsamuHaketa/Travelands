@@ -3,12 +3,16 @@ class Post < ApplicationRecord
   has_many :post_comments, dependent: :destroy
 
   has_many :tagmaps, dependent: :destroy
-  has_many :tags, through: :tagmaps
+  has_many :tags, through: :tagmaps, dependent: :destroy
 
   has_many :bookmarks, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
   has_one_attached :post_image
+
+  validates :body, presence: true
+  validates :title, presence: true, length: { maximum: 20 }
+
 
   def get_post_image
     (post_image.attached?) ? post_image : 'no_image.png'
@@ -35,6 +39,14 @@ class Post < ApplicationRecord
 
   def favorited_by?(user)
     favorites.where(user_id: user).exists?
+  end
+
+  def self.search(search)
+    if search
+      where(['body LIKE ?', "%#{search}%"])
+    else
+      all
+    end
   end
 
 end

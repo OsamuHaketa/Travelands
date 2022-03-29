@@ -1,4 +1,5 @@
 class PostCommentsController < ApplicationController
+before_action :authenticate_user!
 
   def create
     @post = Post.find(params[:post_id])
@@ -8,15 +9,14 @@ class PostCommentsController < ApplicationController
       redirect_to request.referer
     else
       redirect_to request.referer
+
     end
   end
 
-  def edit
-
-  end
-
   def destroy
-
+    comment = PostComment.find(params[:id])
+    comment.destroy
+    redirect_to request.referer
   end
 
 private

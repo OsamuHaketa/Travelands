@@ -1,31 +1,40 @@
 <div class="container">
-  <div class="card d-flex align-items-center justify-content-center text-center">
-    <img src="/assets/top.jpg" class="card-img">
+  <div class="card d-flex align-items-center justify-content-center text-center mb-2">
+    <%= image_tag asset_path("top.jpg"),class:"card-img" %>
     <div class="card-img-overlay d-flex justify-content-center align-items-center">
       <div class="py-4 col-8 col-md-5"  style="background-color:rgba(255,255,255,0.8); ">
         <h3 style="font-family:cursive; font-size:26px;"><b>Travelands</b></h3>
       </div>
     </div>
   </div>
-  <% @tag_list.each do |tag| %>
-    <%= link_to tag.tagname, tag_posts_path(tag.id) %>
-    <%= "(#{tag.posts.count}件)" %>
+  <span>(多い順に5件表示) タグ：</span>
+  <% @tag_list.first(5).each do |tag| %>
+    <% if tag.posts.count != 0 %>
+      <%= link_to tag.tagname, tag_posts_path(tag.id) %>
+      <%= "(#{tag.posts.count}件)" %>
+    <% end %>
   <% end %>
-  <div class="table-responsive">
+  <%= link_to "タグ一覧",tag_path,class:"btn btn-sm btn-outline-success ml-3" %>
+  <div>
+    <%= form_tag(root_path, :method => "get") do %>
+      <%= text_field_tag :search %>
+      <%= submit_tag "投稿を検索" ,:username => nil ,class: "btn btn-outline-success"%>
+    <% end %>
+  </div>
+  <div class="table-responsive mt-2">
     <table class='table table-hover table-inverse'>
       <thead>
         <tr>
-          <th class="col-7"></th>
+          <th class="col-7">投稿一覧(新着順)</th>
           <th class="col-2"></th>
           <th class="col-3"></th>
         </tr>
       </thead>
-
       <tbody>
         <% @posts.each do |post| %>
           <tr>
             <td>
-              <%= link_to post_path(post.id)  do %>
+              <%= link_to post_path(post.id) do %>
               <%= image_tag post.get_post_image, width: '100%' %>
               <% end %>
             </td>
@@ -51,7 +60,9 @@
           </tr>
         <% end %>
       </tbody>
-
     </table>
+  </div>
+  <div class="d-flex justify-content-center">
+    <%= paginate @posts %>
   </div>
 </div>

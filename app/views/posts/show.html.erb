@@ -4,7 +4,13 @@
       <div class="my-4">
         <strong><%= @post.title %></strong>
         <% if @post.user == current_user %>
-          <%= link_to "編集する", edit_post_path(@post) %>
+          <%= link_to edit_post_path(@post) do %>
+            <i class="fas fa-edit" style="color: green;"></i>
+          <% end %>
+          <%= "/" %>
+          <%= link_to post_path(@post), method: :delete, data: { confirm: '削除しますか？' } do %>
+            <i class="fas fa-trash" style="color: red;"></i>
+          <% end %>
         <% end %>
       </div>
       <%= image_tag @post.get_post_image, width:"100%" %>
@@ -29,6 +35,7 @@
       </p>
     </div>
     <div class="col-12">
+      <% if user_signed_in? %>
       <div class="row mb-1">
         <div class="mx-3">
           <div id="bookmark_button_<%= @post.id %>">
@@ -41,6 +48,7 @@
           </div>
         </div>
       </div>
+      <% end %>
       <div class="mb-2">
         <%= image_tag @post.user.get_profile_image, width: '40px',height: "40px",class:"rounded-circle" %>
         <%= link_to @post.user.name, user_path(@post.user) %>
@@ -50,30 +58,40 @@
       </div>
     </div>
   </div>
-  <div>
-    <%= form_with model: [@post, @post_comment], local: true do |f| %>
-      <%= f.text_area :comment, :rows =>"5", placeholder:"コメント：", class:"form-control mb-3" %>
-      <%= f.submit "コメントする",class:"btn btn-success col-sm-3 mb-3" %>
-    <% end %>
-  </div>
-  <div class="low">
+  <% if user_signed_in? %>
+    <div>
+      <%= form_with model: [@post, @post_comment], local: true do |f| %>
+        <%= f.text_area :comment, :rows =>"5", placeholder:"コメント：", class:"form-control mb-3" %>
+        <%= f.submit "コメントする",class:"btn btn-success col-sm-3 mb-3" %>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="low mb-5">
     <table class='table table-hover table-inverse'>
       <thead>
         <tr>
-          <th></th>
-          <th></th>
+          <th class="col-4">コメント一覧</th>
+          <th class="col-7"></th>
+          <th class="col-1"></th>
         </tr>
       </thead>
       <tbody>
         <% @post.post_comments.each do |post_comment| %>
           <tr>
             <td>
-              <%= image_tag post_comment.user.get_profile_image, width: '40px',height: "40px",class:"rounded-circle" %>
+              <%= image_tag post_comment.user.get_profile_image, width: '40px',height: "40px",class:"rounded-circle" %><br>
               <%= post_comment.user.name %>
             </td>
             <td>
               <%=safe_join(post_comment.comment.split("\n"),tag(:br))%>
-              </td>
+            </td>
+            <td>
+              <% if post_comment.user == current_user %>
+                <%= link_to post_post_comment_path(@post, post_comment), method: :delete do %>
+                  <i class="fas fa-trash" style="color:red;"></i>
+                <% end %>
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>

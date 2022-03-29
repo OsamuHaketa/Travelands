@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+before_action :authenticate_user!, only: [:new,:create,:index,:edit,:destroy,:update]
 
   def new
     @post = Post.new
@@ -12,7 +13,7 @@ class PostsController < ApplicationController
       @post.save_tags(tag_list)
       redirect_to post_path(@post)
     else
-      redirect_to request.referer
+      render :new
     end
   end
 
@@ -23,7 +24,6 @@ class PostsController < ApplicationController
   end
 
   def index
-
   end
 
   def edit
@@ -42,10 +42,16 @@ class PostsController < ApplicationController
     end
   end
 
+  def destroy
+    post = Post.find(params[:id])
+    post.destroy
+    redirect_to user_path(current_user)
+  end
+
   def search
-    @tag_list = Tag.all
-    @tag = Tag.find(params[:tag_id])
-    @posts = @tag.posts.all
+    @tag_list = Tag.all.sort {|a,b| b.posts.size <=> a.posts.size}
+    @tag = Tag.find(params[:id])
+    @posts = @tag.posts.all.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   private
@@ -53,4 +59,5 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:post_image, :user_id, :body, :title, :star)
   end
+
 end

@@ -1,6 +1,6 @@
 class HomesController < ApplicationController
   def top
-    @posts = Post.all
-    @tag_list = Tag.all
+    @posts = Post.all.order(created_at: :desc).page(params[:page]).per(5).search(params[:search])
+    @tag_list = Tag.all.sort {|a,b| b.posts.size <=> a.posts.size}
   end
 end

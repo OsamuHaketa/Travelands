@@ -8,27 +8,30 @@
 
   <div class="row">
     <div class="col-12 mt-3">
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <form>
-        <div class="form-group col-xs-9">
-         <%= f.label :メールアドレス, class: "col-12 col-md-3 text-left" %>
-         <%= f.email_field :email, autofocus: true, :placeholder => "必須", class: "ml-4 pl-0" %>
-        </div>
-        <div class="form-group col-xs-9">
-          <label class= "col-12 col-md-3 text-left" >
-             <%= f.label :パスワード %>
-             <% if @minimum_password_length %>
-               <em>(<%= @minimum_password_length %>文字以上)</em>
-             <% end %>
-          </label>
-          <%= f.password_field :password, autocomplete: "new-password", :placeholder => "必須", class: "ml-4 pl-0" %>
-        </div>
+      <%= form_with(model:@user, url: session_path(@user)) do |f| %>
+        <% flash.each do |key, value| %>
+          <%= content_tag :div, "メールアドレスとパスワードが一致しません。", style:"color: red;" %>
+        <% end %>
+        <form>
+          <div class="form-group col-xs-9">
+           <%= f.label :メールアドレス, class: "col-12 col-md-3 text-left" %>
+           <%= f.email_field :email, autofocus: true, :placeholder => "必須", class: "ml-4 pl-0" %>
+          </div>
+          <div class="form-group col-xs-9">
+            <label class= "col-12 col-md-3 text-left" >
+               <%= f.label :パスワード %>
+               <% if @minimum_password_length %>
+                 <em>(<%= @minimum_password_length %>文字以上)</em>
+               <% end %>
+            </label>
+            <%= f.password_field :password, autocomplete: "new-password", :placeholder => "必須", class: "ml-4 pl-0" %>
+          </div>
 
-        <div class="actions text-center">
-          <%= f.submit "ログイン",class: "btn btn-success mt-2 mb-3" %>
-        </div>
+          <div class="actions text-center">
+            <%= f.submit "ログイン",class: "btn btn-success mt-2 mb-3" %>
+          </div>
 
-      </form>
+        </form>
       <% end %>
     </div>
   </div>
