@@ -35,6 +35,7 @@
       </p>
     </div>
     <div class="col-12">
+      <% if user_signed_in? %>
       <div class="row mb-1">
         <div class="mx-3">
           <div id="bookmark_button_<%= @post.id %>">
@@ -47,6 +48,7 @@
           </div>
         </div>
       </div>
+      <% end %>
       <div class="mb-2">
         <%= image_tag @post.user.get_profile_image, width: '40px',height: "40px",class:"rounded-circle" %>
         <%= link_to @post.user.name, user_path(@post.user) %>
