@@ -7,14 +7,20 @@
       </div>
     </div>
   </div>
-  <span>(多い順に5件表示)タグ：</span>
+  <span>(多い順に5件表示) タグ：</span>
   <% @tag_list.first(5).each do |tag| %>
     <% if tag.posts.count != 0 %>
       <%= link_to tag.tagname, tag_posts_path(tag.id) %>
       <%= "(#{tag.posts.count}件)" %>
     <% end %>
   <% end %>
-  <%= link_to "タグ一覧",tag_path,class:"btn btn-sm btn-primary ml-3" %>
+  <%= link_to "タグ一覧",tag_path,class:"btn btn-sm btn-outline-success ml-3" %>
+<div>  
+<%= form_tag(root_path, :method => "get") do %>
+<%= text_field_tag :search %> 
+<%= submit_tag "投稿を検索" ,:username => nil ,class: "btn btn-outline-success"%> 
+<% end %> 
+</div>
   <div class="table-responsive mt-2">
     <table class='table table-hover table-inverse'>
       <thead>
