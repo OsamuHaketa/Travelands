@@ -1,5 +1,5 @@
 class TagsController < ApplicationController
   def index
-    @tag_list = Tag.all.sort {|a,b| b.posts.size <=> a.posts.size}
+    @tag_list = Tag.all.search(params[:search])
   end
 end
