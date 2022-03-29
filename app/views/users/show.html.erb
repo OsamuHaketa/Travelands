@@ -1,4 +1,13 @@
 <div class="container">
+  <% if user_signed_in? %>
+    <% if @user == current_user %>
+      <div class="low my-1 text-right">
+        <%= link_to user_confirm_path(current_user) do %>
+          <i class="fas fa-user-minus" style="color: red;"></i>退会する
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
   <div class="justify-content-center">
     <div class="low mt-4 mb-2 text-center">
       <%= image_tag @user.get_profile_image, width: '200px',height: "200px",class:"rounded-circle" %>
@@ -7,13 +16,6 @@
       <strong><%= @user.name %></strong>
     </div>
     <% if user_signed_in? %>
-      <% if @user == current_user %>
-        <div class="low mb-1 text-center">
-          <%= link_to user_confirm_path(current_user) do %>
-            <i class="fas fa-trash" style="color: red;"></i>退会する
-          <% end %>
-        </div>
-      <% end %>
       <div class="low mb-1 text-center">
         <% if @user == current_user %>
           <%= link_to "編集",edit_user_path(current_user) %>
