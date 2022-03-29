@@ -80,7 +80,7 @@
               <%= post_comment.user.name %>
               <% if post_comment.user == current_user %>
                 <%= link_to post_post_comment_path(@post, post_comment), method: :delete do %>
-                  <i class="fas fa-trash"></i>削除
+                  <i class="fas fa-trash" style="color:red;"></i>
                 <% end %>
               <% end %>
             </td>
