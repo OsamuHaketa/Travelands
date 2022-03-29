@@ -1,11 +1,11 @@
 class FavoritesController < ApplicationController
 before_action :authenticate_user!
-  
+
   def index
     @user = current_user
-    @favorites = @user.favorites
+    @favorites = @user.favorites.page(params[:page]).per(5)
   end
-  
+
   def create
     @post = Post.find(params[:post_id])
     @favorite = @post.favorites.new(user_id: current_user.id)

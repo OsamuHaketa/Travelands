@@ -3,7 +3,7 @@ before_action :authenticate_user!
 
   def index
     @user = current_user
-    @bookmarks = @user.bookmarks
+    @bookmarks = @user.bookmarks.page(params[:page]).per(5)
   end
   
   def create

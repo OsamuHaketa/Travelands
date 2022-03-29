@@ -2,7 +2,11 @@ Rails.application.routes.draw do
 
   root :to =>"homes#top"
   devise_for :users
-
+  
+  devise_scope :user do
+    get '/users', to: 'devise/registrations#new'
+  end
+  
   resources :users do
     resource :relationships, only: [:create, :destroy]
     get "followings" => "relationships#followings", as: "followings"
