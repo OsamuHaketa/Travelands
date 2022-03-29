@@ -51,7 +51,7 @@ before_action :authenticate_user!, only: [:new,:create,:index,:edit,:destroy,:up
   def search
     @tag_list = Tag.all
     @tag = Tag.find(params[:tag_id])
-    @posts = @tag.posts.all
+    @posts = @tag.posts.all.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   private
@@ -59,5 +59,5 @@ before_action :authenticate_user!, only: [:new,:create,:index,:edit,:destroy,:up
   def post_params
     params.require(:post).permit(:post_image, :user_id, :body, :title, :star)
   end
-  
+
 end

@@ -69,7 +69,8 @@
       <thead>
         <tr>
           <th class="col-4">コメント一覧</th>
-          <th class="col-8"></th>
+          <th class="col-7"></th>
+          <th class="col-1"></th>
         </tr>
       </thead>
       <tbody>
@@ -78,15 +79,17 @@
             <td>
               <%= image_tag post_comment.user.get_profile_image, width: '40px',height: "40px",class:"rounded-circle" %><br>
               <%= post_comment.user.name %>
+            </td>
+            <td>
+              <%=safe_join(post_comment.comment.split("\n"),tag(:br))%>
+            </td>
+            <td>
               <% if post_comment.user == current_user %>
                 <%= link_to post_post_comment_path(@post, post_comment), method: :delete do %>
                   <i class="fas fa-trash" style="color:red;"></i>
                 <% end %>
               <% end %>
             </td>
-            <td>
-              <%=safe_join(post_comment.comment.split("\n"),tag(:br))%>
-              </td>
           </tr>
         <% end %>
       </tbody>
