@@ -22,5 +22,6 @@ module Travelands
     config.i18n.load_path += Dir[Rails.root.join('config/locales/*.yml').to_s]
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
     config.time_zone = 'Asia/Tokyo'
+    config.paths.add 'lib', eager_load: true
   end
 end
