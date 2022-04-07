@@ -1,4 +1,5 @@
 <div class='container'>
+  <p style="color:red;"><%= alert %></p>
   <%= form_with model: @post, url: post_path, local: true do |f| %>
      <div class="row">
       <div class="mx-auto text-center mt-3">
@@ -27,6 +28,7 @@
           starOn : '<%= asset_path('star-on.png') %>',
           starHalf : '<%= asset_path('star-half.png') %>',
           scoreName: 'post[star]',
+          score : 0.5,
           half: true,
         });
         </script>

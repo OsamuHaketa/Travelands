@@ -9,11 +9,22 @@ before_action :authenticate_user!, only: [:new,:create,:index,:edit,:destroy,:up
     @post = Post.new(post_params)
     @post.user_id = current_user.id
     tag_list = params[:post][:tagname].delete(' ').delete('　').split(',')
-    if @post.save
-      @post.save_tags(tag_list)
-      redirect_to post_path(@post)
+    if params[:post][:post_image].present?
+      result = Vision.get_image_data(params[:post][:post_image])
+      if result == true
+        if @post.save
+          @post.save_tags(tag_list)
+          redirect_to post_path(@post)
+        else
+          render :new
+        end
+      elsif result == false
+        flash.now[:alert] = '画像が不適切な疑いがあるため、投稿できません。'
+        render :new
+      end
     else
-      render :new
+      flash.now[:alert] = '画像を選択してください。'
+        render :new
     end
   end
 
@@ -34,11 +45,20 @@ before_action :authenticate_user!, only: [:new,:create,:index,:edit,:destroy,:up
   def update
     post = Post.find(params[:id])
     tag_list = params[:post][:tagname].delete(' ').delete('　').split(',')
-    if post.update(post_params)
-      post.save_tags(tag_list)
-      redirect_to post_path(post)
+    if params[:post][:post_image].present?
+      result = Vision.get_image_data(params[:post][:post_image])
+      if result == true
+        if post.update(post_params)
+          post.save_tags(tag_list)
+          redirect_to post_path(post)
+        else
+          redirect_to request.referer,flash: { alert: "投稿内容に空欄があったため、編集できませんでした。" }
+        end
+      elsif result == false
+        redirect_to request.referer,flash: { alert: "画像が不適切な疑いがあるため、投稿できません。" }
+      end
     else
-      redirect_to request.referer
+        redirect_to request.referer,flash: { alert: "画像を選択してください。" }
     end
   end
 
