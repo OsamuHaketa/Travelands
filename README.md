@@ -28,9 +28,6 @@
 - 旅行に行きたいけれど、他の人の経験を参考にしたいという時
 - 行きたい、もしくは既にいる旅行先の周辺に、何か良い場所がないかを探したい時
 
-## 設計書
-<>
-
 ## チャレンジ要素一覧
 <https://docs.google.com/spreadsheets/d/1uBs6aF5u2kMA59FSB6smA0Kzuo6Wlpric0-9QPXzE4E/edit#gid=0>
 
