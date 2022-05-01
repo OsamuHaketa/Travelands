@@ -64,8 +64,12 @@ before_action :authenticate_user!, only: [:new,:create,:index,:edit,:destroy,:up
 
   def destroy
     post = Post.find(params[:id])
-    post.destroy
-    redirect_to user_path(current_user)
+    if post.user.id == current_user.id
+      post.destroy
+      redirect_to user_path(current_user)
+    else
+      redirect_to request.referer
+    end
   end
 
   def search
