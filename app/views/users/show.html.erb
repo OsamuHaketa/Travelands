@@ -18,9 +18,11 @@
     <% if user_signed_in? %>
       <div class="low mb-1 text-center">
         <% if @user == current_user %>
-          <%= link_to "編集",edit_user_path(current_user) %>
-          <%= "|" %>
+          <%= link_to edit_user_path(current_user) do %>
+            <i class="fas fa-cog"></i>
+          <% end %>
         <% end %>
+        <%= "|" %>
         <%= link_to "フォローしている人を見る",user_followings_path(@user) %>
           <%= "|" %>
           <%= link_to "フォロワーを見る",user_followers_path(@user) %>
